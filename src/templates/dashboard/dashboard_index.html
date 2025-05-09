@@ -1,0 +1,160 @@
+
+{% extends '_layout.html' %}
+
+{% block title %} {{ title }} {% endblock %}
+
+  {% block stylesheet %}
+     .sec-box{
+     <!-- width:400px; --><!-- dont uncomment this code - line -->
+     height:160px;
+     max-width:100%;
+     line-height:160px;
+     text-align:center;
+     position:relative;
+     
+     font-size:1.9rem;
+
+    -webkit-box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 3px 1px -2px rgba(0,0,0,0.12), 0 1px 5px 0 rgba(0,0,0,0.2);
+    box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 3px 1px -2px rgba(0,0,0,0.12), 0 1px 5px 0 rgba(0,0,0,0.2);
+    transition: all 400ms ease-in;
+
+    font-variant: petite-caps;
+ }
+
+.sec-box a{
+ color:#fff;
+ text-decoration:none;
+	
+}
+
+
+ .employee-box{
+    background: #5a4747;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #d04247, #5a4747);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #d04247, #5a4747); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    
+}
+
+
+ .leave-box{
+    background: #5a4747;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to left, #d04247, #5a4747);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to left, #d04247, #5a4747); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+}
+
+.leave-box a{
+	color:white !important;
+}
+
+
+ .birthday-box{
+ 	background:#8664ad;
+}
+
+.company-box{
+	background:#868686;
+}
+
+
+
+
+.count-object {
+    position: absolute;
+    top: 40%;
+    right: 12px;
+    font-size: 29px;
+    font-weight: 100;
+    font-variant: petite-caps;
+    color: #f5f5f5;
+    text-shadow:1px 1px rgba(8, 8, 8, 0.23);
+}
+
+.navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:not(.btn):hover, .navbar-default .navbar-nav > .active > a:not(.btn):focus, .navbar-default .navbar-nav > li > a:not(.btn):hover, .navbar-default .navbar-nav > li > a:not(.btn):focus { color: #f44336 }
+
+.navbar-default .navbar-nav > .dropdown > a:hover .caret, .navbar-default .navbar-nav > .dropdown > a:focus .caret { border-bottom-color:  #d04247; border-top-color:  #d04247; }
+     
+  {% endblock %}
+
+  
+
+ <!--CONTENTS-->
+ {% block content %}
+        <section class="content">
+            <section class="container-fluid">
+            	<section class="row">
+            		{% if request.user.is_superuser and request.user.is_staff %}
+            		<section class="col col-lg-4">
+            			<div class="employee-box sec-box">
+            				<a href="">
+            				<span style="font-size: 24px;">Registered Employees:  {{ employees.count }}</span>
+            				</a>
+            				<!-- <span class="count-object"></span>  -->
+            			</div>
+            		</section>
+            		<section class="col col-lg-4">
+            			<div class="leave-box sec-box">
+            				<a href="">
+            				<span style="font-size: 24px;"></span>Leaves Requested: {{ leaves.count }}</span>
+            				</a>
+                            <!-- <span class="count-object" style="color:#41b6d6;"></span>  -->
+            			</div>
+            		</section>
+            		
+            		{% else %}
+                    <section class="col col-lg-6">
+                        <div class="leave-box sec-box">
+                            <a href="">
+                            <span>Total Leaves: {{ staff_leaves.count }}</span>
+                            </a>
+                            <!-- <span class="count-object" style="color:#41b6d6;"></span>  -->
+                        </div>
+                    </section>
+                    
+
+                    
+                    
+                    {% endif %}
+
+                    
+
+                </section>
+                
+                
+
+                
+
+
+            </section> <!-- /container --> 
+                     
+        </section>
+
+        
+ {% endblock %}
+
+ 
+
+
+{% block extrajs%}
+    
+    
+
+    $(document).ready(function(){
+          var get_login_user = '{{request.user.username}}'
+          
+          console.log(get_login_user);
+
+          demo.initChartist();
+
+          $.notify({
+              icon: 'fa fa-user',
+              message: "Welcome to LMS Django, " +get_login_user
+
+            },{
+                type: 'danger',
+                timer: 4000
+            });
+
+      });
+
+{% endblock %}
